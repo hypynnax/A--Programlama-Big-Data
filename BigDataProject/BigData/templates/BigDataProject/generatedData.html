@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Big Data Üretilen Veriler</title>
+  <script type="text/javascript" src="../../static/BigDataProject/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="../../static/BigDataProject/jquery.vmap.min.js"></script>
+  <script type="text/javascript" src="../../static/BigDataProject/jquery.vmap.world.js"></script>
+  <script type="text/javascript" src="../../static/BigDataProject/jquery.vmap.sampledata.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      jQuery("#harita1").vectorMap({
+        map: "world_en",
+        backgroundColor: "#fff",
+        color: "#dddddd",
+        hoverOpacity: 0.7,
+        selectedColor: "#666666",
+        enableZoom: true,
+        showTooltip: true,
+        values: sample_data,
+        scaleColors: ["#999999", "#000000"],
+        normalizeFunction: "polynomial",
+        onRegionClick: function (element, code) {
+          var mouseX = event.pageX;
+          var mouseY = event.pageY;
+
+          var canvas = document.getElementById("canvas");
+          var oneRadioButtons = document.getElementsByName("options");
+          var oneSelectedValue = "";
+          for (var i = 0; i < oneRadioButtons.length; i++) {
+            if (oneRadioButtons[i].checked) {
+              oneSelectedValue = oneRadioButtons[i].value;
+              break;
+            }
+          }
+          $.ajax({
+            url: "/bigData/generatedData/" + code + "/" + oneSelectedValue,
+            method: "POST",
+            dataType: "json",
+            success: function (response) {
+              canvas.style.display = "block";
+              drawCircle(
+                JSON.stringify(response.data).trim().replace(/"/g, ""),
+                mouseY,
+                mouseX
+              );
+            },
+            error: function (error) {
+              canvas.style.display = "none";
+              alert("Veri alınamadı");
+            },
+          });
+        },
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/vis-network@7.4.0/dist/vis-network.min.js"></script>
+  <link rel="stylesheet" href="../../static/BigDataProject/style.css" />
+  <link rel="stylesheet" href="../../static/BigDataProject/jqvmap.css" />
+</head>
+
+<body>
+  <nav>
+    <h1>AĞ PROGRAMLAMA</h1>
+    <div>
+      <button class="btn">
+        <a href="/bigData/generatedData/">ÜRETİLEN VERİLER</a>
+      </button>
+    </div>
+  </nav>
+  <img src="../../static/BigDataProject/open.png" id="sidebar_open" />
+  <img src="../../static/BigDataProject/graph.png" alt="Graph Map" id="graphIco" />
+  <div id="sidebar">
+    <div class="radio-container">
+      <input type="radio" id="Density(P/Km2)" name="options" value="Density(P-Km2)" />
+      <label for="Density(P/Km2)">Density (P/Km2)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="AgriculturalLand(%)" name="options" value="Agricultural-Land(%)" />
+      <label for="AgriculturalLand(%)">Agricultural Land (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="LandArea(Km2)" name="options" value="Land-Area(Km2)" />
+      <label for="LandArea(Km2)">Land Area (Km2)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="ArmedForcesSize" name="options" value="Armed-Forces-size" />
+      <label for="ArmedForcesSize">Armed Forces Size</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="Birth Rate" name="options" value="Birth-Rate" />
+      <label for="Birth-Rate">Birth Rate</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="CO2Emissions" name="options" value="Co2-Emissions" />
+      <label for="CO2Emissions">CO2 Emissions</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="CPI" name="options" value="CPI" />
+      <label for="CPI">CPI</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="CPIChange(%)" name="options" value="CPI-Change(%)" />
+      <label for="CPIChange(%)">CPI Change (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="FertilityRate" name="options" value="Fertility-Rate" />
+      <label for="FertilityRate">Fertility Rate</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="ForestedArea(%)" name="options" value="Forested-Area(%)" />
+      <label for="ForestedArea(%)">Forested Area (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="GasolinePrice" name="options" value="Gasoline-Price" />
+      <label for="GasolinePrice">Gasoline Price</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="GDP" name="options" value="GDP" />
+      <label for="GDP">GDP</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="GrossPrimaryEducationEnrollment(%)" name="options"
+        value="Gross-primary-education-enrollment(%)" />
+      <label for="Gross primary education enrollment (%)">Gross Primary Education Enrollment (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="GrossTertiaryEducationEnrollment(%)" name="options"
+        value="Gross-tertiary-education-enrollment(%)" />
+      <label for="GrossTertiaryEducationEnrollment(%)">Gross Tertiary Education Enrollment (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="InfantMortality" name="options" value="Infant-mortality" />
+      <label for="InfantMortality">Infant Mortality</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="LifeExpectancy" name="options" value="Life-expectancy" />
+      <label for="LifeExpectancy">Life Expectancy</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="MaternalMortalityRatio" name="options" value="Maternal-mortality-ratio" />
+      <label for="MaternalMortalityRatio">Maternal Mortality Ratio</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="MinimumWage" name="options" value="Minimum-wage" />
+      <label for="MinimumWage">Minimum Wage</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="OutofPocketHealthExpenditure(%)" name="options"
+        value="Out-of-pocket-health-expenditure" />
+      <label for="Out of pocket health expenditure">Out of Pocket Health Expenditure (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="PhysiciansperThousand" name="options" value="Physicians-per-thousand" />
+      <label for="PhysiciansperThousand">Physicians per Thousand</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="Population" name="options" value="Population" />
+      <label for="Population">Population</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="Population:LaborForceParticipation(%)" name="options"
+        value="Population-Labor-force-participation(%)" />
+      <label for="Population:LaborForceParticipation(%)">Population: Labor Force Participation (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="TaxRevenue(%)" name="options" value="Tax-revenue(%)" />
+      <label for="TaxRevenue(%)">Tax Revenue (%)</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="TotalTaxRate" name="options" value="Total-tax-rate" />
+      <label for="TotalTaxRate">Total Tax Rate</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="UnemploymentRate" name="options" value="Unemployment-rate" />
+      <label for="UnemploymentRate">Unemployment Rate</label>
+    </div>
+    <div class="radio-container">
+      <input type="radio" id="UrbanPopulation" name="options" value="Urban-population" />
+      <label for="UrbanPopulation">Urban Population</label>
+    </div>
+  </div>
+
+  <div id="harita1" class="harita"><canvas id="canvas"></canvas></div>
+
+  <div id="overlay" class="overlay"></div>
+
+  <footer>
+    <p>
+      Bu sayfa ağ programlama dersinde big data çağında hangi ülkelerin ne
+      kadar veri üretiğini göstermek amacı ile hazırlanmıştır.
+      <strong>215541065 By Nurullah KARA</strong>
+    </p>
+  </footer>
+</body>
+
+<script>
+  var stateSidebar = 0;
+  var buttonSidebar = document.getElementById("sidebar_open");
+  var sidebar = document.getElementById("sidebar");
+  document
+    .getElementById("sidebar_open")
+    .addEventListener("click", function () {
+      if (stateSidebar == 1) {
+        sidebar.style.display = "none";
+        sidebar.style.zIndex = -999;
+        buttonSidebar.src = "../../static/BigDataProject/open.png";
+      } else {
+        sidebar.style.display = "flex";
+        sidebar.style.zIndex = 998;
+        buttonSidebar.src = "../../static/BigDataProject/close.png";
+        buttonSidebar.style.zIndex = 999;
+      }
+      stateSidebar = (stateSidebar + 1) % 2;
+    });
+</script>
+
+<script>
+  var stateGraph = 0;
+  var buttonGraph = document.getElementById("graphIco");
+  var overlay = document.getElementById("overlay");
+  document.getElementById("graphIco").addEventListener("click", function () {
+    var allRadioButtons = document.getElementsByName("options");
+    var allSelectedValue = "";
+    for (var i = 0; i < allRadioButtons.length; i++) {
+      if (allRadioButtons[i].checked) {
+        allSelectedValue = allRadioButtons[i].value;
+        break;
+      }
+    }
+    if (stateGraph == 1) {
+      overlay.style.display = "none";
+      overlay.style.zIndex = -999;
+      buttonGraph.src = "../../static/BigDataProject/graph.png";
+    } else {
+      overlay.style.display = "block";
+      overlay.style.zIndex = 900;
+      buttonGraph.src = "../../static/BigDataProject/close.png";
+      buttonGraph.style.zIndex = 901;
+      $.ajax({
+        url: "/bigData/generatedData/" + allSelectedValue,
+        method: "POST",
+        dataType: "json",
+        success: function (response) {
+          let container = document.getElementById("overlay");
+          let nodes = response.nodes;
+          let edges = response.edges;
+
+          let data = {
+            nodes: new vis.DataSet(nodes),
+            edges: new vis.DataSet(edges),
+          };
+          let options = {
+            nodes: {
+              shape: 'circle',
+              color: getRandomColor(),
+              font: {
+                size: 14,
+                color: 'white'
+              }
+            },
+            edges: {
+              width: 2,
+              color: getRandomColor(),
+            }
+          };
+          let network = new vis.Network(container, data, options);
+        },
+        error: function (error) {
+          alert("Veri alınamadı");
+        },
+      });
+    }
+    stateGraph = (stateGraph + 1) % 2;
+  });
+</script>
+
+<script>
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext("2d");
+
+  function drawCircle(data, koordinatY, koordinatX) {
+    canvas.style.display = "block";
+    canvas.width = 300;
+    canvas.height = 300;
+
+    var radius = parseInt(100);
+
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+
+    canvas.style.top = koordinatY - 75 - centerY + "px";
+    canvas.style.left = koordinatX - centerX + "px";
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = getRandomColor();
+    context.fill();
+
+    context.fillStyle = "black";
+    context.font = "20px Arial";
+    context.textAlign = "center";
+    context.fillText(data, centerX, centerY);
+  }
+
+  canvas.addEventListener("click", function (event) {
+    var x = event.clientX - canvas.getBoundingClientRect().left;
+    var y = event.clientY - canvas.getBoundingClientRect().top;
+    canvas.style.display = "none";
+  });
+
+  function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+</script>
+
+</html>
