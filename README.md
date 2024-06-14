@@ -70,4 +70,6 @@ Quit the server with CTRL-BREAK.
 
 bundan sonra [http://127.0.0.1:8000/bigData/generatedData/](http://127.0.0.1:8000/bigData/generatedData/) adresini ziyaret ederek projeyi görebilirsiniz.
 
+## Proje Açıklaması
 
+Proje sayfasını açtığınızda ilk olarak sağ üste duran 3 çizgi (menu butonu) basıp bir kategori seçimi yapmanız gerekmektedir. Daha sonra ister harita üstünde bir ülke seçin ve seçilen ülkenin seçilen kategorideki verisi bir balon şeklinde gelsin (bir daha balonun üzerine tıklarsanız kaybolacaktır.) istersenizde sol üste duran graph butonuna basarak seçilen kategorideki tüm ülkelerin bir biri ile olan ilişkisini gösteren graph yapısını görün.
