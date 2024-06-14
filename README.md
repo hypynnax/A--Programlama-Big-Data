@@ -25,7 +25,7 @@ Bu projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları tak
 
 ### Adım 1: Depoyu Klonlayın
 
-*Öncelikle, GitHub reposunu yerel makinenize klonlayın:*
+**Öncelikle, GitHub reposunu yerel makinenize klonlayın:**
 
 Yerelde oluşturduğunuz bir dosyayı git bash ile açarak
 
