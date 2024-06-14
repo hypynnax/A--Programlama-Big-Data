@@ -25,26 +25,36 @@ Bu projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları tak
 
 ### Adım 1: Depoyu Klonlayın
 
-Öncelikle, GitHub reposunu yerel makinenize klonlayın:
-Yerelde oluşturduğunuz bir dosyayı git bash ile açarak '''git clone https://github.com/hypynnax/Ag-Programlama-Big-Data.git''' komutu ile repoyu kendi localinize çekin.
+*Öncelikle, GitHub reposunu yerel makinenize klonlayın:*
+
+Yerelde oluşturduğunuz bir dosyayı git bash ile açarak
+
+```git clone https://github.com/hypynnax/Ag-Programlama-Big-Data.git```
+
+komutu ile repoyu kendi localinize çekin.
 
 
 ### Adım 2: Gerekli Kütüphaneleri İndirin
 
-'''
+```
 pip install django
 pip install pandas
 pip install openpyxl
 pip install django-extensions
-'''
+```
 
 
 ### Adım 3: Projeyi Çalıştırın
 
-Yeni bir terminal açın ve '''py manage.py runserver''' komudunu yazın bu sayede proje başlatılabilir.
+Yeni bir terminal açın ve 
+
+```py manage.py runserver```
+
+komudunu yazın bu sayede proje başlatılabilir.
+
 Şöyle bir çıktı alacaksınız;
 
-"""
+```
 Watching for file changes with StatReloader
 Performing system checks...
 
@@ -56,8 +66,8 @@ June 13, 2024 - 13:16:46
 Django version 5.0.6, using settings 'BigDataProject.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
-"""
+```
 
-bundan sonra [Proje Ana Sayfa](http://127.0.0.1:8000/bigData/generatedData/) adresini ziyaret ederek projeyi görebilirsiniz.
+bundan sonra [http://127.0.0.1:8000/bigData/generatedData/](http://127.0.0.1:8000/bigData/generatedData/) adresini ziyaret ederek projeyi görebilirsiniz.
 
 
